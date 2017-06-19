@@ -32,7 +32,7 @@ let reload = () => {
         opponents.push(datum.Opponent)
       })
       yScale.domain([0, d3.max(goalsScored)])
-        .range([0, height])
+        .range([0, height-margin])
       xScale.domain([0, goalsScored.length])
         .range([0, width-marginLeft])
       colorScale.domain([0, d3.max(goalsScored)])
@@ -51,7 +51,6 @@ let redraw = (dataset, opponents) => {
     .append('rect')
     .attr('class', 'bar')
     .attr('x', (d, i) => {
-      console.log(xScale(i))
       return xScale(i) + marginLeft
     })
     .attr('y', (d, i) => {
@@ -70,6 +69,8 @@ let redraw = (dataset, opponents) => {
 
   let y_axis = d3.axisLeft()
     .scale(yAxisScale)
+    .ticks(4)
+    .tickPadding(3)
 
   svg.append('g')
     .attr('transform', `translate(${marginLeft})`)
@@ -81,6 +82,8 @@ let redraw = (dataset, opponents) => {
 
   let x_axis = d3.axisBottom()
     .scale(xAxisScale)
+    .ticks(46)
+    .tickPadding(3)
 
   svg.append('g')
     .attr('transform', `translate(${marginLeft}, ${height-margin})`)
